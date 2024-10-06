@@ -78,6 +78,10 @@ reset
 # echo: display some text
 echo "hocus pocus"
 
+# eval: evaluate expressions
+expr 2 + 2
+expr "some_string"
+
 # pwd : (path working directory) writes the full pathname of the current working directory to the standard output.
 pwd
 
