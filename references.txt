@@ -1,0 +1,86 @@
+https://linuxhandbook.com/install-vim-ubuntu/
+https://linuxhandbook.com/nano-editor-basics/
+https://linuxhandbook.com/basic-vim-commands/
+https://linuxhandbook.com/vim-copy-clipboard/
+https://linuxhandbook.com/vimdiff/
+https://linuxhandbook.com/vim-cheat-sheet/
+https://linuxhandbook.com/split-vim-workspace/
+https://linuxhandbook.com/vim-modes/
+https://linuxhandbook.com/pro-vim-tips/
+https://itsfoss.com/nano-editor-guide/
+https://itsfoss.com/how-to-exit-vim/
+https://itsfoss.com/copy-paste-linux-terminal/
+https://itsfoss.com/basic-terminal-tips-ubuntu/
+https://itsfoss.com/linux-command-tricks/
+
+https://linuxhandbook.com/get-file-path/
+https://learnubuntu.com/find-files/?ref=linuxhandbook.com
+https://linuxhandbook.com/grep-search-all-files-directories/
+https://linuxhandbook.com/grep-egrep-fgrep/
+https://linuxhandbook.com/grep-command-cheatsheet/
+https://linuxhandbook.com/find-files-by-name/
+https://linuxhandbook.com/find-exec-command/
+https://linuxhandbook.com/show-process-tree/
+https://linuxhandbook.com/free-command/
+https://linuxhandbook.com/check-running-process/
+https://linuxhandbook.com/find-process-id/
+https://linuxhandbook.com/process-name-from-pid/
+https://itsfoss.com/use-htop/
+
+https://linuxhandbook.com/fold-fmt-commands/
+https://linuxhandbook.com/wc-command/
+https://linuxhandbook.com/cat-command/
+https://linuxhandbook.com/ls-command/
+https://linuxhandbook.com/find-directory-size-du-command/
+https://linuxhandbook.com/sort-command/
+https://linuxhandbook.com/sort-by-column/
+https://linuxhandbook.com/less-command/
+https://linuxhandbook.com/quotes-in-bash/
+https://linuxhandbook.com/xargs-command/
+https://linuxhandbook.com/pipe-redirection/
+https://linuxhandbook.com/redirection-linux/
+https://linuxhandbook.com/chattr-command/
+https://linuxhandbook.com/suid-sgid-sticky-bit/
+https://linuxhandbook.com/touch-command/
+https://linuxhandbook.com/file-timestamps/
+https://linuxhandbook.com/df-command/
+https://linuxhandbook.com/linux-directory-structure/
+https://linuxhandbook.com/absolute-vs-relative-path/
+https://linuxhandbook.com/mkdir-command/
+https://itsfoss.com/use-7zip-ubuntu-linux/
+https://linuxhandbook.com/csplit-command/
+https://linuxhandbook.com/man-pages/
+https://linuxhandbook.com/linux-memory-usage/
+https://linuxhandbook.com/linux-list-users/
+https://linuxhandbook.com/bash-sleep/
+https://linuxhandbook.com/sort-command/
+https://linuxhandbook.com/uniq-command/
+https://linuxhandbook.com/nohup-command/
+https://linuxhandbook.com/view-file-linux/
+look command
+
+https://linuxhint.com/differences_between_bash_zsh/
+https://www.geeksforgeeks.org/linux-file-hierarchy-structure/
+https://www.ionos.es/digitalguide/servidores/know-how/asignacion-de-permisos-de-acceso-con-chmod/
+https://linuxjourney.com/lesson/etc-group-file
+https://linuxjourney.com/lesson/etc-passwd-file
+https://linuxjourney.com/lesson/etc-shadow-file
+
+Para h4ckers, vector de Privilege Escalation SUID/SGID:
+# para obtener todos los SUID
+find / -perm -4000 2>/dev/null
+
+# para obtener todos los SGID/"GUID"
+find / -perm -2000 2>/dev/null
+
+# encuentra todos los sticky bits
+find / -perm -1000 2>/dev/null
+
+Encontrar interesantes:
+find / -type f -perm 0777  #busque archivos con los permisos 777 (archivos legibles, grabables y ejecutables por todos los usuarios)
+find / -perm a=x    #encontrar archivos ejecutables
+
+#Encuentra carpetas en las que se puede escribir en todo el mundo
+find / -writable -type d 2>/dev/null
+find / -perm -222 -type d 2>/dev/null
+find / -perm -o w -type d 2>/dev/null
