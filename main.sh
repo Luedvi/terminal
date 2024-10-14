@@ -884,6 +884,15 @@ grep -m 2 string_pattern ./file.txt
 grep -ir --include='*.java' nashorn ./directory | grep -ivw nashorn
 grep -ir --include='*.java' nashorn ./directory | grep -iw nashorn
 
+# diff: compare files line by line
+diff ./file1 ./file2
+diff ./file1 -  # A file name of '-' stands for the standard input.
+# -q, --brief: report only when files differ
+diff -q file1 file2
+diff --brief directory1 directory2  # If two file names are given and both are directories, 'diff' compares corresponding files in both directories, in alphabetical order; this comparison is not recursive unless the '--recursive' ('-r') option is given.
+# -s, --report-identical-files: report when two files are the same
+diff -s file1 directory1  #  If one file is a directory and the other is not, 'diff' compares the file in the directory whose name is that of the non-directory. The non-directory file must not be '-'.
+diff --report-identical-files directory1 file1
 
 # xargs: reads items from the standard input, delimited by blanks (which can be protected with double or single quotes or a backslash) or newlines, and executes the command  (default is /bin/echo) one or more times with any arguments followed by items read from standard input.  Blank lines on the standard input are ignored. 
 xargs
