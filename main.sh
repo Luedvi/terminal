@@ -910,6 +910,13 @@ diff file1 file2 file3 --from-file reference_directory
 diff file1 --to-file=directory1
 # '--' as an argument by itself treats the remaining arguments as file names even if they begin with '-'.
 diff -- -file_name1 file_name2
+# -u: Use the unified output format, showing three lines of context
+diff -u file1 file2
+# -U LINES, --unified[=LINES]: Use the unified output format, showing LINES (an integer) lines of context, or three if LINES is not given. For proper operation, 'patch' typically needs at least two lines of context.
+diff -U 4 file1 file2
+diff -U4 file1 file2
+diff --unified=4 file1 file2
+diff --unified file1 file2
 
 # xargs: reads items from the standard input, delimited by blanks (which can be protected with double or single quotes or a backslash) or newlines, and executes the command  (default is /bin/echo) one or more times with any arguments followed by items read from standard input.  Blank lines on the standard input are ignored. 
 xargs
