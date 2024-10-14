@@ -724,8 +724,8 @@ find path/to/dir -type f -name *.txt
 find . -type f -name FILE1.cpp # it works because FILE1.cpp still works as search term.
 # But there are two ".txt" files in the same directory and hence the command expands to
 find . -type f -name file1.txt file2.txt # it complains because there is more than one search term now.
-"find: paths must precede expression: `file1.cpp'"
-"find: possible unquoted pattern after predicate `-name'?"
+"find: paths must precede expression: 'file1.cpp'"
+"find: possible unquoted pattern after predicate '-name'?"
 # Search for multiple files with multiple extensions, the -o option works as logical "OR" condition
 find . -type f -name "*.cpp" -o -name "*.txt"
 find dir -type f \( -name "*.js" -o -name "*.pdf" \)
@@ -893,6 +893,23 @@ diff --brief directory1 directory2  # If two file names are given and both are d
 # -s, --report-identical-files: report when two files are the same
 diff -s file1 directory1  #  If one file is a directory and the other is not, 'diff' compares the file in the directory whose name is that of the non-directory. The non-directory file must not be '-'.
 diff --report-identical-files directory1 file1
+# -r, --recursive: recursively compare any subdirectories found
+diff --recursive file1 file2
+diff -r file1 file2
+# --ignore-file-name-case: ignore case when comparing file names
+diff --ignore-file-name-case file1 file2
+# --no-ignore-file-name-case: consider case when comparing file names
+diff --no-ignore-file-name-case file1 file2
+# -i, --ignore-case: ignore case differences in file contents
+diff -i file1 file2
+diff --ignore-case file1 file2
+# --from-file=FILE1: compare FILE1 to all operands; FILE1 can be a directory
+diff --from-file=reference_file file1 file2 file3
+diff file1 file2 file3 --from-file reference_directory
+# --to-file=FILE2: compare all operands to FILE2; FILE2 can be a directory
+diff file1 --to-file=directory1
+# '--' as an argument by itself treats the remaining arguments as file names even if they begin with '-'.
+diff -- -file_name1 file_name2
 
 # xargs: reads items from the standard input, delimited by blanks (which can be protected with double or single quotes or a backslash) or newlines, and executes the command  (default is /bin/echo) one or more times with any arguments followed by items read from standard input.  Blank lines on the standard input are ignored. 
 xargs
