@@ -886,6 +886,7 @@ grep -ir --include='*.java' nashorn ./directory | grep -iw nashorn
 
 # diff: compare files line by line
 diff ./file1 ./file2
+diff file1 file2 > file_name.diff
 diff ./file1 -  # A file name of '-' stands for the standard input.
 # -q, --brief: report only when files differ
 diff -q file1 file2
@@ -912,11 +913,17 @@ diff file1 --to-file=directory1
 diff -- -file_name1 file_name2
 # -u: Use the unified output format, showing three lines of context
 diff -u file1 file2
+diff -u file1 file2 > file_name.patch
 # -U LINES, --unified[=LINES]: Use the unified output format, showing LINES (an integer) lines of context, or three if LINES is not given. For proper operation, 'patch' typically needs at least two lines of context.
 diff -U 4 file1 file2
 diff -U4 file1 file2
 diff --unified=4 file1 file2
 diff --unified file1 file2
+
+# patch: Takes a patch file containing a difference listing produced by the diff program and applies those differences to one or more original files, producing patched versions.
+patch file_name.txt patch_file.patch  # if there's just one file to be patched it can be specified on the command line.
+patch file_name.txt < patch_file.patch
+patch < patch_file.diff  # The names of the files to be patched are usually taken from the patch file
 
 # xargs: reads items from the standard input, delimited by blanks (which can be protected with double or single quotes or a backslash) or newlines, and executes the command  (default is /bin/echo) one or more times with any arguments followed by items read from standard input.  Blank lines on the standard input are ignored. 
 xargs
