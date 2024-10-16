@@ -924,7 +924,7 @@ diff --unified file1 file2
 patch file_name.txt patch_file.patch  # if there's just one file to be patched it can be specified on the command line.
 patch file_name.txt < patch_file.patch
 patch < patch_file.diff  # The names of the files to be patched are usually taken from the patch file
-# -b  or  --backup: Make backup files.  That is, when patching a file, rename or copy the original instead of removing it.  See the -V or --version-control option for details about how backup file names are determined.
+# -b or --backup: Make backup files.  That is, when patching a file, rename or copy the original instead of removing it.  See the -V or --version-control option for details about how backup file names are determined.
 patch -b < patch_file.patch
 patch --backup < patch_file.patch
 # --dry-run: Print the results of applying the patches without actually changing any files.
@@ -933,27 +933,45 @@ patch --dry-run < patch_file.patch
 patch --backup-if-mismatch < patch_file.patch
 # --no-backup-if-mismatch: Do not back up a file if the patch does not match the file exactly and if backups are not otherwise requested.  This is the  default if patch is conforming to POSIX.
 patch --no-backup-if-mismatch < patch_file.patch
-# -d dir  or  --directory=dir: Change to the directory dir immediately, before doing anything else.
+# -d dir or --directory=dir: Change to the directory "dir" immediately, before doing anything else.
 patch -d directory_name < patch_file.patch
 patch --directory=directory_name < patch_file.patch
 patch -d directory1 file_name.txt patch_file.patch
-# -i patchfile  or  --input=patchfile: Read the patch from patchfile.  If patchfile is -, read from standard input, the default.
+# -i patchfile or --input=patchfile: Read the patch from patchfile.  If patchfile is -, read from standard input, the default.
+patch -i patch_file.patch
 patch file_name.txt -i patch_file.patch
 patch file_name.txt --input=patch_file.patch
-# --merge or --merge=merge or --merge=diff3: Merge a patch file into the original files similar to "diff3" or "merge".  If a conflict is found, patch  outputs  a  warning  and brackets the conflict with <<<<<<< and >>>>>>> lines.  The  optional  argument  of  --merge determines the output format for conflicts: the diff3 format shows the ||||||| section with the original lines from the patch; in the merge format, this section is missing. The merge format is the default. This option implies --forward and does not take the --fuzz=num option into account.
+# -o outfile or --output=outfile: Send output to "outfile" instead of patching files in place.  Do not use this option if "outfile" is one of the files to be patched. When "outfile" is -, send output to standard output, and send any messages that would usually go to standard output to standard error.
+patch -o outfile_name < patch_file.patch
+patch --output=outfile_name < patch_file.patch
+# --merge or --merge=merge or --merge=diff3: Merge a patch file into the original files similar to "diff3" or "merge". If a conflict is found, patch outputs a warning and brackets the conflict with <<<<<<< and >>>>>>> lines. The optional argument of --merge determines the output format for conflicts: the diff3 format shows the ||||||| section with the original lines from the patch; in the merge format, this section is missing. The merge format is the default. This option implies --forward and does not take the --fuzz=num option into account.
 patch --merge file_name patch_file.patch
 patch --merge=merge file_name patch_file.patch
 patch --merge=diff3 file_name patch_file.patch
-# -pnum or --strip=num: Strip the smallest prefix containing num leading slashes from each file name found in the patch file.  A sequence of one or more adjacent  slashes  is  counted  as a single slash. This controls how file names found in the patch file are treated, in case you keep your files in a different directory than the person who sent out the patch. Not  specifying -p at all just gives you "blurfl.c" Whatever you end up with is looked for either in the current directory, or the directory specified by the -d option
+# -pnum or --strip=num: Strip the smallest prefix containing "num" leading slashes from each file name found in the patch file. A sequence of one or more adjacent slashes is counted as a single slash. This controls how file names found in the patch file are treated, in case you keep your files in a different directory than the person who sent out the patch. Not specifying -p at all just gives you "blurfl.c" Whatever you end up with is looked for either in the current directory, or the directory specified by the -d option
 patch -p0 < patch_file.patch  # gives the entire file name unmodified "/u/howard/src/blurfl/blurfl.c"
 patch -p1 < patch_file.patch  # without the leading slash "u/howard/src/blurfl/blurfl.c"
 patch -p4 < patch_file.patch  # "blurfl/blurfl.c"
-# -r rejectfile  or  --reject-file=rejectfile: Put rejects into "rejectfile" instead of the default ".rej" file.  When "rejectfile" is -, discard rejects
+# -r rejectfile or --reject-file=rejectfile: Put rejects into "rejectfile" instead of the default ".rej" file.  When "rejectfile" is -, discard rejects
 patch -r file_name < patch_file.patch
 patch --reject-file=file_name < patch_file.patch
-# -R or --reverse: Assume that this patch was created with the old and new files swapped
+# -R or --reverse: Assume that this patch was created with the old and new files swapped. Reverses the patch, effectively undoing the changes
+patch -R file_name.txt patch_file.patch
 patch -R < patch_file.patch
 patch --reverse < patch_file.patch
+# -B pref or --prefix=pref: Use the "simple" method to determine backup file names (see the -V method or --version-control method option), and append "pref" to a file name when generating its backup file name. For example, with "-B /junk/" the simple backup file name for "src/patch/util.c" is "/junk/src/patch/util.c"
+patch -B pref_string < patch_file.patch
+patch --prefix=pref_string < patch_file.patch
+# -Y pref or --basename-prefix=pref: Use the "simple" method to determine backup file names (see the -V method or --version-control method option), and prefix "pref" to the basename of a file name when generating its backup file name. For example, with "-Y .del/" the simple backup file name for "src/patch/util.c" is "src/patch/.del/util.c"
+patch -Y pref_sting < patch_file.patch
+patch --basename-prefix=pref_string < patch_file.patch
+# -z suffix or --suffix=suffix: Use the "simple" method to determine backup file names (see the -V method or --version-control method option), and use suffix as the suffix. For example, with "-z -" the backup file name for "src/patch/util.c" is "src/patch/util.c-"
+patch -z suffix_string < patch_file.patch
+patch --suffix=suffix_string < patch_file.patch
+# -V method or --version-control=method: Use "method" to determine backup file names. The "method" does not affect whether backup files are made; it affects only the names of any backup files that are made. With "numbered" or "simple" backups, if the backup file name is too long, the backup suffix "~" is used instead; if even appending "~" would make the name too long, then "~" replaces the last character of the file name.
+patch -V existing  < patch_file.patch # "existing" or "nil" Make numbered backups of files that already have them, otherwise simple backups. This is the default
+patch --version-control=numbered < patch_file.patch  # "numbered" or "t" Make numbered backups. The numbered backup file name for "F" is "F.~N~" where "N" is the version number
+patch -V simple < patch_file.patch # "simple" or "never" Make  simple backups. The -B or --prefix, -Y or --basename-prefix, and -z or --suffix options specify the simple backup file name. If none of these options are given, then a simple backup suffix is used; it is the value of the SIMPLE_BACKUP_SUFFIX environment variable if set, and is ".orig" otherwise.
 
 # xargs: reads items from the standard input, delimited by blanks (which can be protected with double or single quotes or a backslash) or newlines, and executes the command  (default is /bin/echo) one or more times with any arguments followed by items read from standard input.  Blank lines on the standard input are ignored. 
 xargs
